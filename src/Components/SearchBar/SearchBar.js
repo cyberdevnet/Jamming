@@ -1,38 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
+import Spotify from "../../util/Spotify";
 import "./SearchBar.css";
 
-class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: "",
-    };
 
-    this.search = this.search.bind(this);
-    this.handleTermChange = this.handleTermChange.bind(this);
-  }
 
-  search() {
-    this.props.onSearch(this.state.term);
-  }
+export default function SearchBar(props) {
+const [term, setterm] = useState("")
 
-  handleTermChange(event) {
-    this.setState({ term: event.target.value });
-  }
 
-  render() {
-    return (
-      <div className="SearchBar">
-        <input
-          onChange={this.handleTermChange}
-          placeholder="Enter A Song, Album, or Artist"
-        />
-        <button onClick={this.search} className="SearchButton">
-          SEARCH
-        </button>
-      </div>
-    );
-  }
+function handleTermChange(event) {
+  setterm(event.target.value);
 }
 
-export default SearchBar;
+
+function search(e) {
+  e.preventDefault();
+  Spotify.search(term,e).then((searchResults) => {
+    props.setsearchResults(searchResults);
+  });
+}
+
+
+  return (
+    <div className="SearchBar">
+    <input
+      onChange={handleTermChange}
+      placeholder="Enter A Song, Album, or Artist"
+    />
+    <button type="button" onClick={(e) => search(e)} className="SearchButton">
+      SEARCH
+    </button>
+  </div>
+  )
+}

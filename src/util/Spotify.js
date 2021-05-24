@@ -25,8 +25,9 @@ const Spotify = {
     }
   },
 
-  search(term) {
+  search(term, e) {
     console.log(term);
+    e.preventDefault();
     const accessToken = Spotify.getAccessToken();
 
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
