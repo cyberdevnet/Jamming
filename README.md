@@ -1,3 +1,6 @@
+## Simple Spotify Playlist creator built with React and Typescript support (only for learning purposes)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
